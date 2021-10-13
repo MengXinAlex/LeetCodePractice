@@ -1,14 +1,10 @@
-class Solution(object):
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        # dp problem
-        dp = nums
-        ret = dp[0]
-        for i in range(1, len(nums)):
-            if dp [i-1] > 0:
-                dp[i] += dp[i-1]
-            ret = max(ret, dp[i])
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        ret = nums[0]
+        cur = 0
+        for i in nums:
+            if cur < 0:
+                cur = 0
+            cur += i
+            ret = max(ret, cur)
         return ret
