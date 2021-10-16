@@ -1,5 +1,9 @@
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
         ret = nums[0]
         cur = 0
         for i in nums:
@@ -8,3 +12,4 @@ class Solution:
             cur += i
             ret = max(ret, cur)
         return ret
+        
