@@ -10,25 +10,23 @@ class Node:
 
 class Solution:
     def flatten(self, head: 'Node') -> 'Node':
-        def getTail(node):
-            prev = None
-            while node:
-                _next = node.next
-                if node.child:
-                    # ... <-> node <-> node.child <-> ...
-                    node.next = node.child
-                    node.child = None
-                    node.next.prev = node
-                    # get the end node of the node.child list
-                    prev = getTail(node.next)
-                    if _next:
-                        # ... <-> prev (end node) <-> _next (originally node.next) <-> ...
-                        _next.prev = prev
-                        prev.next = _next
-                else:
-                    prev = node
-                node = _next  # loop through the list of nodes
-            return prev  # return end node
-
-        getTail(head)
+        if not head:
+            return
+        ret = head
+        n_list = []
+        if ret.next:
+            n_list.append(ret.next)
+        if ret.child:
+            n_list.append(ret.child)
+        
+        while n_list:
+            node = n_list.pop()
+            if node.next:
+                n_list.append(node.next)
+            if node.child:
+                n_list.append(node.child)
+            ret.next = node
+            ret.child = None
+            node.prev = ret
+            ret = node
         return head
